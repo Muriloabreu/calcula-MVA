@@ -1,6 +1,7 @@
 package com.api.calculamva.models;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -91,6 +92,34 @@ public class ProductModel {
 
 	public void setUnitaryValue(double unitaryValue) {
 		this.unitaryValue = unitaryValue;
+	}
+
+
+	@Override
+	public String toString() {
+		return "ProductModel [id=" + id + ", name=" + name + ", description=" + description + ", registrationDate="
+				+ registrationDate + ", unitaryValue=" + unitaryValue + "]";
+	}
+
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(description, id, name, registrationDate, unitaryValue);
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ProductModel other = (ProductModel) obj;
+		return Objects.equals(description, other.description) && Objects.equals(id, other.id)
+				&& Objects.equals(name, other.name) && Objects.equals(registrationDate, other.registrationDate)
+				&& Double.doubleToLongBits(unitaryValue) == Double.doubleToLongBits(other.unitaryValue);
 	}
 	
 	
