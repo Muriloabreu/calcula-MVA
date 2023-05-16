@@ -1,5 +1,7 @@
 package com.api.calculamva.controllers;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.api.calculamva.dtos.ProductDtos;
+import com.api.calculamva.models.ProductModel;
 import com.api.calculamva.services.ProductService;
 
 
@@ -35,62 +38,64 @@ public class ProductController {
 	@PostMapping
 	public ResponseEntity<Object> saveProduct(@RequestBody @Valid ProductDtos productDtos){
 		
-		if (productService.existsByName(clienteDtos.getCpf())) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: CPF já cadastrado!"); /* Check se livro já está cadastrada */
+		if (productService.existsByName(productDtos.getName())) {
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("Conflict: Name is already in use!"); /* Check se livro já está cadastrada */
 		}
-		var clienteModel = new ClienteModel();
-		BeanUtils.copyProperties(clienteDtos, clienteModel); /*Coverte Dtos para Model*/
-		
-		return ResponseEntity.status(HttpStatus.CREATED).body(clienteService.save(clienteModel));
+		var productModel = new ProductModel();
+		BeanUtils.copyProperties(productDtos, productModel); /*Coverte Dtos para Model*/
+		productModel.setRegistrationDate(LocalDateTime.now(ZoneId.of("UTC")));
+		return ResponseEntity.status(HttpStatus.CREATED).body(productService.save(productModel));
 	}
 	
 	@GetMapping
-	public ResponseEntity<List<ClienteModel>>getAllClientes(){
-		return ResponseEntity.status(HttpStatus.OK).body(clienteService.findAll());
+	public ResponseEntity<List<ProductModel>>getAllProducts(){
+		return ResponseEntity.status(HttpStatus.OK).body(productService.findAll());
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<Object> getOneCliente(@PathVariable(value = "id") Long id) {
 
-		Optional<ClienteModel> clienteOptional = clienteService.findById(id);
+		Optional<ProductModel> productOptional = productService.findById(id);
 
-		if (!clienteOptional.isPresent()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado. ");
+		if (!productOptional.isPresent()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found.. ");
 		}
 
-		return ResponseEntity.status(HttpStatus.OK).body(clienteOptional.get());
+		return ResponseEntity.status(HttpStatus.OK).body(productOptional.get());
 
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Object> deleteCliente(@PathVariable(value = "id") Long id) {
+	public ResponseEntity<Object> deleteProduct(@PathVariable(value = "id") Long id) {
 
-		Optional<ClienteModel> clienteOptional = clienteService.findById(id);
-		if (!clienteOptional.isPresent()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado. ");
+		Optional<ProductModel> productOptional = productService.findById(id);
+
+		if (!productOptional.isPresent()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found.. ");
 		}
 
-		clienteService.delete(clienteOptional.get());
-		return ResponseEntity.status(HttpStatus.OK).body("Cliente deletado com sucesso. ");
+		productService.delete(productOptional.get());
+		return ResponseEntity.status(HttpStatus.OK).body("Product deleted successfully. ");
 
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<Object> updateCliente(@PathVariable(value = "id") Long id,
-			                                        @RequestBody @Valid ClienteDtos clienteDtos) {
+	public ResponseEntity<Object> updateProduct(@PathVariable(value = "id") Long id,
+			                                        @RequestBody @Valid ProductDtos productDtos) {
 
-		Optional<ClienteModel> clienteOptional = clienteService.findById(id);
-		if (!clienteOptional.isPresent()) {
-			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado. ");
+		Optional<ProductModel> productOptional = productService.findById(id);
+
+		if (!productOptional.isPresent()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product not found.. ");
 		}
 		
-		var clienteModel = clienteOptional.get();
-		clienteModel.setNome(clienteDtos.getNome());
-		clienteModel.setSobreNome(clienteDtos.getSobreNome());
-		clienteModel.setCpf(clienteDtos.getCpf());
-		clienteModel.setTelefone(clienteDtos.getTelefone());
+		var productModel = productOptional.get();
+		productModel.setName(productDtos.getName());
+		productModel.setDescription(productDtos.getDescription());
+		productModel.setRegistrationDate(productModel.getRegistrationDate());
+		productModel.setUnitaryValue(productDtos.getUnitaryValue());
 				
-		return ResponseEntity.status(HttpStatus.OK).body(clienteService.save(clienteModel));
+		return ResponseEntity.status(HttpStatus.OK).body(productService.save(productModel));
 	
 
 	}
