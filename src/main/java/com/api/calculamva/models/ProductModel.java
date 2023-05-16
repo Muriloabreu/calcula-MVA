@@ -25,6 +25,7 @@ public class ProductModel {
 	@Column(nullable = false)
 	private double unitaryValue;
 	
+	
 	/* Constructor */
 	
 	public ProductModel() {
