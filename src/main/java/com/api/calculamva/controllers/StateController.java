@@ -91,7 +91,7 @@ public class StateController {
 		var stateModel = stateOptional.get();
 		stateModel.setName(stateDtos.getName());
 		stateModel.setAbbreviation(stateDtos.getAbbreviation());
-		
+		stateModel.setIcms(stateDtos.getIcms());
 				
 		return ResponseEntity.status(HttpStatus.OK).body(stateService.save(stateModel));
 	
