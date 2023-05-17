@@ -20,6 +20,8 @@ public class StateModel {
 	private String name;
 	@Column(nullable = false)
 	private String abbreviation;
+	@Column(nullable = false)
+	private Integer icms;
 	
 	/* Constructor */
 	
@@ -27,11 +29,12 @@ public class StateModel {
 		super();
 	}
 
-	public StateModel(Long id, String name, String abbreviation) {
+	public StateModel(Long id, String name, String abbreviation, Integer icms) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.abbreviation = abbreviation;
+		this.icms = icms;
 	}
 	
 	/* Accessor Methods */
@@ -59,15 +62,21 @@ public class StateModel {
 	public void setAbbreviation(String abbreviation) {
 		this.abbreviation = abbreviation;
 	}
+	public Integer getIcms() {
+		return icms;
+	}
+	public void setIcms(Integer icms) {
+		this.icms = icms;
+	}
 
 	@Override
 	public String toString() {
-		return "StateModel [id=" + id + ", name=" + name + ", abbreviation=" + abbreviation + "]";
+		return "StateModel [id=" + id + ", name=" + name + ", abbreviation=" + abbreviation + "icms=" + icms + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(abbreviation, id, name);
+		return Objects.hash(abbreviation, icms, id, name);
 	}
 
 	@Override
@@ -79,9 +88,11 @@ public class StateModel {
 		if (getClass() != obj.getClass())
 			return false;
 		StateModel other = (StateModel) obj;
-		return Objects.equals(abbreviation, other.abbreviation) && Objects.equals(id, other.id)
-				&& Objects.equals(name, other.name);
+		return Objects.equals(abbreviation, other.abbreviation) && Objects.equals(icms, other.icms)
+				&& Objects.equals(id, other.id) && Objects.equals(name, other.name);
 	}
+
+	
 	
 	
 	
