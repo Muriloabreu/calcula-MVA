@@ -1,6 +1,7 @@
 package com.api.calculamva.dtos;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 public class StateDtos {
 	
@@ -8,6 +9,8 @@ public class StateDtos {
 	private String name;
 	@NotBlank
 	private String abbreviation;
+	@NotNull
+	private Integer icms;
 	
 	/* Constructor */
 	
@@ -15,13 +18,16 @@ public class StateDtos {
 		super();
 	}
 	
-	/* Accessor Methods */
-	
-	public StateDtos(@NotBlank String name, @NotBlank String abbreviation) {
+	public StateDtos(@NotBlank String name, @NotBlank String abbreviation, @NotNull Integer icms) {
 		super();
 		this.name = name;
 		this.abbreviation = abbreviation;
+		this.icms = icms;
 	}
+
+	/* Accessor Methods */
+	
+	
 
 	public String getName() {
 		return name;
@@ -38,7 +44,12 @@ public class StateDtos {
 	public void setAbbreviation(String abbreviation) {
 		this.abbreviation = abbreviation;
 	}
-	
+	public Integer getIcms() {
+		return icms;
+	}
+	public void setIcms(Integer icms) {
+		this.icms = icms;
+	}
 	
 	
 	
