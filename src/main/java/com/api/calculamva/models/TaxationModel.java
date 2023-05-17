@@ -21,6 +21,9 @@ public class TaxationModel {
 	@OneToOne
 	@JoinColumn(name = "product_id", referencedColumnName = "id")
 	private ProductModel product;
+	@OneToOne
+	@JoinColumn(name = "state_id", referencedColumnName = "id")
+	private StateModel state;
 	@Column(nullable = false)
 	private double amount;
 	@Column(nullable = false)
@@ -93,7 +96,14 @@ public class TaxationModel {
 	public void setProduct(ProductModel product) {
 		this.product = product;
 	}
-
+	
+	public StateModel getState() {
+		return state;
+	}
+	
+	public void setState(StateModel state) {
+		this.state = state;
+	}
 
 	public double getAmount() {
 		return amount;
@@ -113,6 +123,7 @@ public class TaxationModel {
 	public void setValueProduct(double valueProduct) {
 		this.valueProduct = valueProduct;
 	}
+	
 	public Integer getMVA() {
 		return MVA;
 	}
@@ -124,7 +135,13 @@ public class TaxationModel {
 
 
 	public double getCalculoMva() {
-		return calculoMva;
+		
+		double result = 0.0;
+		
+		result = getValueProduct() * getMVA();
+		
+		
+		return result;
 	}
 
 
@@ -134,7 +151,12 @@ public class TaxationModel {
 
 
 	public double getValueMva() {
-		return valueMva;
+		
+		double result = 0.0;
+		
+		result = getValueProduct() + getCalculoMva();
+		
+		return result;
 	}
 
 
@@ -144,7 +166,11 @@ public class TaxationModel {
 
 
 	public double getIcmsXvalueMva() {
-		return icmsXvalueMva;
+		double result = 0.0;
+		
+		result = getValueMva() * getState().getIcms();
+		
+		return result;
 	}
 
 
@@ -154,7 +180,12 @@ public class TaxationModel {
 
 
 	public double getIcmsXicms() {
-		return icmsXicms;
+		
+		double result = 0.0;
+		
+		result = getIcmsXvalueMva() - getState().getIcms();
+		
+		return result;
 	}
 
 
@@ -164,7 +195,11 @@ public class TaxationModel {
 
 
 	public double getUND() {
-		return UND;
+		double result = 0.0;
+		
+		result = getValueProduct() - getIcmsXicms();
+		
+		return result;
 	}
 
 
@@ -174,7 +209,12 @@ public class TaxationModel {
 
 
 	public double getValueXicms() {
-		return valueXicms;
+		
+		double result = 0.0;
+		
+		result = getValueProduct() + getIcmsXicms();
+		
+		return result;
 	}
 
 
@@ -184,7 +224,11 @@ public class TaxationModel {
 
 
 	public double getTotalNFE() {
-		return totalNFE;
+		double result = 0.0;
+		
+		result =  getIcmsXicms() * getAmount();
+		
+		return result;
 	}
 
 
