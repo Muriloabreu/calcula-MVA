@@ -27,8 +27,6 @@ public class TaxationModel {
 	@Column(nullable = false)
 	private double amount;
 	@Column(nullable = false)
-	private double valueProduct;
-	@Column(nullable = false)
 	private Integer MVA;
 	
 	@Column(nullable = true)
@@ -52,17 +50,13 @@ public class TaxationModel {
 		
 	}
 	
-
-
-
-	public TaxationModel(Long id, ProductModel product, double amount, double valueProduct, Integer mVA,
-			double calculoMva, double valueMva, double icmsXvalueMva, double icmsXicms, double uND,
-			double valueXicms, double totalNFE) {
+	public TaxationModel(Long id, ProductModel product, StateModel state, double amount, Integer mVA, double calculoMva,
+			double valueMva, double icmsXvalueMva, double icmsXicms, double uND, double valueXicms, double totalNFE) {
 		super();
 		this.id = id;
 		this.product = product;
+		this.state = state;
 		this.amount = amount;
-		this.valueProduct = valueProduct;
 		MVA = mVA;
 		this.calculoMva = calculoMva;
 		this.valueMva = valueMva;
@@ -72,8 +66,6 @@ public class TaxationModel {
 		this.valueXicms = valueXicms;
 		this.totalNFE = totalNFE;
 	}
-
-
 
 
 	/* Accessor Methods */
@@ -113,16 +105,6 @@ public class TaxationModel {
 	public void setAmount(double amount) {
 		this.amount = amount;
 	}
-
-
-	public double getValueProduct() {
-		return valueProduct;
-	}
-
-
-	public void setValueProduct(double valueProduct) {
-		this.valueProduct = valueProduct;
-	}
 	
 	public Integer getMVA() {
 		return MVA;
@@ -138,7 +120,7 @@ public class TaxationModel {
 		
 		double result = 0.0;
 		
-		result = getValueProduct() * getMVA();
+		result = getProduct().getUnitaryValue() * getMVA();
 		
 		
 		return result;
@@ -154,7 +136,7 @@ public class TaxationModel {
 		
 		double result = 0.0;
 		
-		result = getValueProduct() + getCalculoMva();
+		result = getProduct().getUnitaryValue() + getCalculoMva();
 		
 		return result;
 	}
@@ -197,7 +179,7 @@ public class TaxationModel {
 	public double getUND() {
 		double result = 0.0;
 		
-		result = getValueProduct() - getIcmsXicms();
+		result = getProduct().getUnitaryValue() - getIcmsXicms();
 		
 		return result;
 	}
@@ -212,7 +194,7 @@ public class TaxationModel {
 		
 		double result = 0.0;
 		
-		result = getValueProduct() + getIcmsXicms();
+		result = getProduct().getUnitaryValue() + getIcmsXicms();
 		
 		return result;
 	}
@@ -236,28 +218,19 @@ public class TaxationModel {
 		this.totalNFE = totalNFE;
 	}
 
-
-
-
 	@Override
 	public String toString() {
-		return "TaxationModel [id=" + id + ", product=" + product + ", amount=" + amount + ", valueProduct="
-				+ valueProduct + ", MVA=" + MVA + ", calculoMva=" + calculoMva + ", valueMva=" + valueMva
-				+ ", icmsXvalueMva=" + icmsXvalueMva + ", icmsXicms=" + icmsXicms + ", UND=" + UND + ", valueXicms="
-				+ valueXicms + ", totalNFE=" + totalNFE + "]";
+		return "TaxationModel [id=" + id + ", product=" + product + ", state=" + state + ", amount=" + amount + ", MVA="
+				+ MVA + ", calculoMva=" + calculoMva + ", valueMva=" + valueMva + ", icmsXvalueMva=" + icmsXvalueMva
+				+ ", icmsXicms=" + icmsXicms + ", UND=" + UND + ", valueXicms=" + valueXicms + ", totalNFE=" + totalNFE
+				+ "]";
 	}
-
-
-
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(MVA, UND, amount, calculoMva, icmsXicms, icmsXvalueMva, id, product, totalNFE, valueMva,
-				valueProduct, valueXicms);
+		return Objects.hash(MVA, UND, amount, calculoMva, icmsXicms, icmsXvalueMva, id, product, state, totalNFE,
+				valueMva, valueXicms);
 	}
-
-
-
 
 	@Override
 	public boolean equals(Object obj) {
@@ -274,11 +247,21 @@ public class TaxationModel {
 				&& Double.doubleToLongBits(icmsXicms) == Double.doubleToLongBits(other.icmsXicms)
 				&& Double.doubleToLongBits(icmsXvalueMva) == Double.doubleToLongBits(other.icmsXvalueMva)
 				&& Objects.equals(id, other.id) && Objects.equals(product, other.product)
+				&& Objects.equals(state, other.state)
 				&& Double.doubleToLongBits(totalNFE) == Double.doubleToLongBits(other.totalNFE)
 				&& Double.doubleToLongBits(valueMva) == Double.doubleToLongBits(other.valueMva)
-				&& Double.doubleToLongBits(valueProduct) == Double.doubleToLongBits(other.valueProduct)
 				&& Double.doubleToLongBits(valueXicms) == Double.doubleToLongBits(other.valueXicms);
 	}
+
+	
+
+
+	
+
+
+
+
+	
 
 	
 	
