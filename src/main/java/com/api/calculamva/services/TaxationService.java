@@ -5,7 +5,7 @@ import java.util.Optional;
 
 import com.api.calculamva.models.TaxationModel;
 
-public interface TaxationRepository {
+public interface TaxationService {
 	
 	List<TaxationModel> findAll();
 	Optional<TaxationModel> findById(Long id);

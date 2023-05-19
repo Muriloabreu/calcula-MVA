@@ -11,35 +11,35 @@ import com.api.calculamva.models.TaxationModel;
 import jakarta.transaction.Transactional;
 
 @Service
-public class TaxationServiceImpl implements TaxationRepository{
+public class TaxationServiceImpl implements TaxationService{
 	
 	@Autowired
-	TaxationRepository taxationRepository;
+	TaxationService taxationService;
 
 	@Override
 	public List<TaxationModel> findAll() {
 		
-		return taxationRepository.findAll();
+		return taxationService.findAll();
 	}
 
 	@Override
 	public Optional<TaxationModel> findById(Long id) {
 		
-		return taxationRepository.findById(id);
+		return taxationService.findById(id);
 	}
 
 	@Override
 	@Transactional
 	public TaxationModel save(TaxationModel taxation) {
 		
-		return taxationRepository.save(taxation);
+		return taxationService.save(taxation);
 	}
 
 	@Override
 	@Transactional
 	public void delete(TaxationModel taxation) {
 		
-		taxationRepository.delete(taxation);
+		taxationService.delete(taxation);
 		
 	}
 
