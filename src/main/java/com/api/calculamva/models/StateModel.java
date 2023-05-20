@@ -71,7 +71,7 @@ public class StateModel {
 
 	@Override
 	public String toString() {
-		return "StateModel [id=" + id + ", name=" + name + ", abbreviation=" + abbreviation + "icms=" + icms + "]";
+		return "StateModel [id=" + id + ", name= " + name + ", abbreviation= " + abbreviation + "icms= " + icms + "]";
 	}
 
 	@Override
