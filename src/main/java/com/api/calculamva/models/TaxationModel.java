@@ -27,8 +27,7 @@ public class TaxationModel {
 	@Column(nullable = false)
 	private double amount;
 	@Column(nullable = false)
-	private Integer MVA;
-	
+	private double MVA;	
 	@Column(nullable = true)
 	private double calculoMva;
 	@Column(nullable = true)
@@ -50,7 +49,7 @@ public class TaxationModel {
 		
 	}
 	
-	public TaxationModel(Long id, ProductModel product, StateModel state, double amount, Integer mVA, double calculoMva,
+	public TaxationModel(Long id, ProductModel product, StateModel state, double amount, double mVA, double calculoMva,
 			double valueMva, double icmsXvalueMva, double icmsXicms, double uND, double valueXicms, double totalNFE) {
 		super();
 		this.id = id;
@@ -106,12 +105,12 @@ public class TaxationModel {
 		this.amount = amount;
 	}
 	
-	public Integer getMVA() {
+	public double getMVA() {
 		return MVA;
 	}
 
 
-	public void setMVA(Integer mVA) {
+	public void setMVA(double mVA) {
 		MVA = mVA;
 	}
 
