@@ -21,7 +21,7 @@ public class StateModel {
 	@Column(nullable = false)
 	private String abbreviation;
 	@Column(nullable = false)
-	private Integer icms;
+	private double icms;
 	
 	/* Constructor */
 	
@@ -29,7 +29,7 @@ public class StateModel {
 		super();
 	}
 
-	public StateModel(Long id, String name, String abbreviation, Integer icms) {
+	public StateModel(Long id, String name, String abbreviation, double icms) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -62,10 +62,10 @@ public class StateModel {
 	public void setAbbreviation(String abbreviation) {
 		this.abbreviation = abbreviation;
 	}
-	public Integer getIcms() {
+	public double getIcms() {
 		return icms;
 	}
-	public void setIcms(Integer icms) {
+	public void setIcms(double icms) {
 		this.icms = icms;
 	}
 
