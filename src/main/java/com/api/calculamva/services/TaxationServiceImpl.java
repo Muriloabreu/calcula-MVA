@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.api.calculamva.models.TaxationModel;
+import com.api.calculamva.repositories.TaxationRepository;
 
 import jakarta.transaction.Transactional;
 
@@ -14,32 +15,32 @@ import jakarta.transaction.Transactional;
 public class TaxationServiceImpl implements TaxationService{
 	
 	@Autowired
-	TaxationService taxationService;
+	TaxationRepository taxationRepository;
 
 	@Override
 	public List<TaxationModel> findAll() {
 		
-		return taxationService.findAll();
+		return taxationRepository.findAll();
 	}
 
 	@Override
 	public Optional<TaxationModel> findById(Long id) {
 		
-		return taxationService.findById(id);
+		return taxationRepository.findById(id);
 	}
 
 	@Override
 	@Transactional
 	public TaxationModel save(TaxationModel taxation) {
 		
-		return taxationService.save(taxation);
+		return taxationRepository.save(taxation);
 	}
 
 	@Override
 	@Transactional
 	public void delete(TaxationModel taxation) {
 		
-		taxationService.delete(taxation);
+		taxationRepository.delete(taxation);
 		
 	}
 
