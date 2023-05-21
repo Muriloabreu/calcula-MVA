@@ -39,6 +39,22 @@ public class TaxationController {
 		var taxationModel = new TaxationModel();
 		BeanUtils.copyProperties(taxationDtos, taxationModel); /*Coverte Dtos para Model*/
 		
+		taxationModel.setCalculoMva(taxationModel.getCalculoMva());
+		taxationModel.setValueMva(taxationModel.getValueMva());
+		taxationModel.setIcmsXvalueMva(taxationModel.getIcmsXvalueMva());
+		taxationModel.setIcmsXicms(taxationModel.getIcmsXicms());
+		taxationModel.setUND(taxationModel.getUND());
+		taxationModel.setValueXicms(taxationModel.getValueXicms());
+		taxationModel.setTotalNFE(taxationModel.getTotalNFE());
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		return ResponseEntity.status(HttpStatus.CREATED).body(taxationService.save(taxationModel));
 	}
 	

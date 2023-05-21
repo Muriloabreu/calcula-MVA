@@ -113,13 +113,22 @@ public class TaxationModel {
 	public void setMVA(double mVA) {
 		MVA = mVA;
 	}
-
+	
+	public double getIcmsXProduct() {
+		double result = 0.0;
+		double porcentagem = getState().getIcms() / 100.0;
+		
+		result =  porcentagem * getProduct().getUnitaryValue() ;
+		
+		return result;
+	}
 
 	public double getCalculoMva() {
 		
 		double result = 0.0;
+		double porcentagem = getMVA() / 100.0;
 		
-		result = getProduct().getUnitaryValue() * getMVA();
+		result =  porcentagem * getProduct().getUnitaryValue() ;
 		
 		
 		return result;
@@ -135,7 +144,8 @@ public class TaxationModel {
 		
 		double result = 0.0;
 		
-		result = getProduct().getUnitaryValue() + getCalculoMva();
+		
+		result = getProduct().getUnitaryValue() + getCalculoMva(); 
 		
 		return result;
 	}
@@ -148,8 +158,9 @@ public class TaxationModel {
 
 	public double getIcmsXvalueMva() {
 		double result = 0.0;
+		double porcentagem = getState().getIcms() / 100;
 		
-		result = getValueMva() * getState().getIcms();
+		result = porcentagem * getValueMva();
 		
 		return result;
 	}
@@ -164,8 +175,11 @@ public class TaxationModel {
 		
 		double result = 0.0;
 		
-		result = getIcmsXvalueMva() - getState().getIcms();
-		
+		result =  getIcmsXProduct() - getIcmsXvalueMva();
+		if (result < 0 ) {
+			
+			result *= (-1); 
+		}
 		return result;
 	}
 
@@ -207,7 +221,7 @@ public class TaxationModel {
 	public double getTotalNFE() {
 		double result = 0.0;
 		
-		result =  getIcmsXicms() * getAmount();
+		result =  getValueXicms() * getAmount();
 		
 		return result;
 	}
