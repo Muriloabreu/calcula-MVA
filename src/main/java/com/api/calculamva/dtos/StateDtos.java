@@ -10,7 +10,7 @@ public class StateDtos {
 	@NotBlank
 	private String abbreviation;
 	@NotNull
-	private Integer icms;
+	private double icms;
 	
 	/* Constructor */
 	
@@ -18,7 +18,7 @@ public class StateDtos {
 		super();
 	}
 	
-	public StateDtos(@NotBlank String name, @NotBlank String abbreviation, @NotNull Integer icms) {
+	public StateDtos(@NotBlank String name, @NotBlank String abbreviation, @NotNull double icms) {
 		super();
 		this.name = name;
 		this.abbreviation = abbreviation;
@@ -44,10 +44,10 @@ public class StateDtos {
 	public void setAbbreviation(String abbreviation) {
 		this.abbreviation = abbreviation;
 	}
-	public Integer getIcms() {
+	public double getIcms() {
 		return icms;
 	}
-	public void setIcms(Integer icms) {
+	public void setIcms(double icms) {
 		this.icms = icms;
 	}
 	
