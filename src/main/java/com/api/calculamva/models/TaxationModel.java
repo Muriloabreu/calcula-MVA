@@ -56,12 +56,12 @@ public class TaxationModel {
 		this.product = product;
 		this.state = state;
 		this.amount = amount;
-		MVA = mVA;
+		this.MVA = mVA;
 		this.calculoMva = calculoMva;
 		this.valueMva = valueMva;
 		this.icmsXvalueMva = icmsXvalueMva;
 		this.icmsXicms = icmsXicms;
-		UND = uND;
+		this.UND = uND;
 		this.valueXicms = valueXicms;
 		this.totalNFE = totalNFE;
 	}
