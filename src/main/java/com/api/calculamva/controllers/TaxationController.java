@@ -1,7 +1,6 @@
 package com.api.calculamva.controllers;
 
-import java.time.LocalDateTime;
-import java.time.ZoneId;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -46,13 +45,6 @@ public class TaxationController {
 		taxationModel.setUND(taxationModel.getUND());
 		taxationModel.setValueXicms(taxationModel.getValueXicms());
 		taxationModel.setTotalNFE(taxationModel.getTotalNFE());
-		
-		
-		
-		
-		
-		
-		
 		
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(taxationService.save(taxationModel));
