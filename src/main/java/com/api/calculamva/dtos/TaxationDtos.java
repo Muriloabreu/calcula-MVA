@@ -14,20 +14,22 @@ public class TaxationDtos {
 	@NotNull
 	private double amount;
 	@NotNull
-	private Integer MVA;
+	private double MVA;
 	
 	public TaxationDtos() {
 		super();
 	}
 
 	public TaxationDtos(@NotNull ProductModel product, @NotNull StateModel state, @NotNull double amount,
-			@NotNull Integer mVA) {
+			@NotNull double mVA) {
 		super();
 		this.product = product;
 		this.state = state;
 		this.amount = amount;
 		MVA = mVA;
 	}
+
+
 
 	public ProductModel getProduct() {
 		return product;
@@ -53,11 +55,11 @@ public class TaxationDtos {
 		this.amount = amount;
 	}
 
-	public Integer getMVA() {
+	public double getMVA() {
 		return MVA;
 	}
-
-	public void setMVA(Integer mVA) {
+	
+	public void setMVA(double mVA) {
 		MVA = mVA;
 	}
 	
